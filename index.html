@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock, Paper, Scissors</title>
+</head>
+<body>
+
+    <h1>Make a Selection: </h1>
+    <br>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    <div id="container">
+    </div>
+    <script>
+
+    let playerScore = 0;
+    let computerScore = 0;  
+
+    const container = document.querySelector('#container'); 
+    const gameArea = document.createElement('div'); 
+    var playerDisplay = document.createElement('p');
+    var computerDisplay = document.createElement('p'); 
+    var choice = document.createElement('h2'); 
+    var results = document.createElement('p'); 
+
+    var rockChoice = document.getElementById("rock");
+    var paperChoice = document.getElementById("paper");
+    var scissorsChoice = document.getElementById("scissors");
+
+    rockChoice.addEventListener("click", option1);
+    paperChoice.addEventListener("click", option2);
+    scissorsChoice.addEventListener("click", option3);
+
+    function computerPlay()
+    {
+        let computerSelection = Math.random()
+        if (computerSelection < 0.34){
+            computerSelection = "rock";
+        }
+        else if (computerSelection <= 0.67){
+            computerSelection = "paper";
+        }
+        else {
+            computerSelection = "scissors";
+        }
+        return computerSelection;
+    }
+
+    function option1()
+    {
+        return playRound("rock", computerPlay());
+    }
+    function option2()
+    {
+        return playRound("paper", computerPlay());
+    }
+    function option3()
+    {
+        return playRound("scissors", computerPlay());
+    }
+    
+    function playRound(playerSelection, cpu)
+    {
+       var result; 
+       choice.innerText = playerSelection + " vs. " + cpu; 
+       if (cpu === playerSelection)
+       {
+           result = "Draw!";
+       } 
+
+       else if (cpu === "rock" && playerSelection === "paper")
+       {
+           playerScore++; 
+           result = "You win!";
+       }
+       else if (cpu === "paper" && playerSelection === "scissors")
+       {
+           playerScore++; 
+           result = "You win!";
+       }
+       else if (cpu === "scissors" && playerSelection === "rock")
+       {
+           playerScore++; 
+           result = "You win!";
+       }
+       else if (cpu === "rock" && playerSelection === "scissors")
+       {
+           computerScore++
+           result = "You lose!";
+       }
+       else if (cpu === "paper" && playerSelection === "rock")
+       {
+           computerScore++
+           result = "You lose!";
+       }
+       else if (cpu === "scissors" && playerSelection === "paper")
+       {
+           computerScore++
+           result = "You lose!";
+       }
+
+       if(playerScore == 5 && computerScore == 5)
+       {
+           result = "It's a Tied Game!"; 
+       }
+       else if(computerScore == 5)
+       {
+           result = "You Lost the Game!"; 
+       }
+       else if(playerScore == 5)
+       {
+           result = "You Won the Game!";
+       }
+       playerDisplay.innerHTML = "Player Score: " + playerScore; 
+       computerDisplay.innerHTML = "Computer Score: " + computerScore; 
+       results.innerHTML = result; 
+    }
+
+    gameArea.classList.add('gameArea'); 
+    gameArea.appendChild(playerDisplay); 
+    gameArea.appendChild(computerDisplay); 
+    gameArea.appendChild(choice);
+    gameArea.appendChild(results); 
+    container.appendChild(gameArea);
+
+    </script>
+</body>
+</html>
